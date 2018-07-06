@@ -89,7 +89,6 @@ public class TimelineActivity extends AppCompatActivity {
         // handle click here
         showProgressBar();
         Intent i = new Intent(this, ComposeActivity.class);
-        i.putExtra("request_code", COMPOSE_REQUEST_CODE);
         startActivityForResult(i, COMPOSE_REQUEST_CODE);
         hideProgressBar();
     }
