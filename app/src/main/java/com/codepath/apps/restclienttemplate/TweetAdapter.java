@@ -3,7 +3,6 @@ package com.codepath.apps.restclienttemplate;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.recyclerview.extensions.ListAdapter;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
@@ -27,7 +26,7 @@ import java.util.Locale;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
-public class TweetAdapter extends ListAdapter<Tweet, TweetAdapter.ViewHolder> {
+public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> {
 
     private List<Tweet> mTweets;
     private Context mContext;
@@ -45,19 +44,9 @@ public class TweetAdapter extends ListAdapter<Tweet, TweetAdapter.ViewHolder> {
                 }
             };
 
-    /*
     //pass in the tweets array into constructor to use it
     public TweetAdapter (List<Tweet> tweets) {
         mTweets = tweets;
-    }
-    */
-
-    public TweetAdapter() {
-        super(DIFF_CALLBACK);
-    }
-
-    protected TweetAdapter(@NonNull DiffUtil.ItemCallback<Tweet> diffCallback) {
-        super(diffCallback);
     }
 
     //for each row, inflate the layout and cache references into ViewHolder
@@ -76,7 +65,7 @@ public class TweetAdapter extends ListAdapter<Tweet, TweetAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //get the data according to position
-        Tweet tweet = getItem(position);
+        Tweet tweet = mTweets.get(position);
 
         //populate the views according to the data
         holder.tvUserName.setText(tweet.user.name);
@@ -89,6 +78,11 @@ public class TweetAdapter extends ListAdapter<Tweet, TweetAdapter.ViewHolder> {
                 .load(tweet.user.profileImageUrl)
                 .apply(RequestOptions.bitmapTransform(new RoundedCornersTransformation(25,0)))
                 .into(holder.ivProfileImage);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mTweets.size();
     }
 
     //create ViewHolder class
@@ -170,20 +164,4 @@ public class TweetAdapter extends ListAdapter<Tweet, TweetAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    public void addMoreTweets(List<Tweet> newTweets) {
-        mTweets.addAll(newTweets);
-        submitList(mTweets); // DiffUtil takes care of the check
-    }
-
-    public void swapItems(List<Tweet> contacts) {
-        // compute diffs
-        final TweetDiffCallback diffCallback = new TweetDiffCallback(this.mTweets, contacts);
-        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
-
-        // clear contacts and add
-        this.mTweets.clear();
-        this.mTweets.addAll(contacts);
-
-        diffResult.dispatchUpdatesTo(this); // calls adapter's notify methods after diff is computed
-    }
 }
