@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -42,6 +43,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         getSupportActionBar().setIcon(R.drawable.ic_launcher_twitter);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
         //find the recycler view
         rvTweets = findViewById(R.id.rvTweet);

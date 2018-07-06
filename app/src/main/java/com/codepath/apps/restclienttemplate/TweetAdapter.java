@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+
+import org.parceler.Parcels;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -69,7 +72,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
     }
 
     //create ViewHolder class
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public ImageView ivProfileImage;
         public TextView tvUserName;
         public TextView tvBody;
@@ -85,11 +88,29 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvBody = itemView.findViewById(R.id.tvBody);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvTimeStamp = itemView.findViewById(R.id.tvTimeStamp);
+            itemView.setOnClickListener(this);
+        }
+
+        //moving to a more detailed activity when movie is clicked
+        @Override
+        public void onClick(View view) {
+            //get position & ensure validity
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                //get the movie at the valid position
+                Tweet tweet = mTweets.get(position);
+                //creating an intent to display MovieDetailsActivity
+                Intent intent = new Intent(mContext, TweetDetailActivity.class);
+                //passing the movie as an extra serialized via Parcel
+                intent.putExtra("tweet", Parcels.wrap(tweet));
+                //show the activity
+                mContext.startActivity(intent);
+            }
         }
     }
 
     // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");
-    public String getRelativeTimeAgo(String rawJsonDate) {
+    private String getRelativeTimeAgo(String rawJsonDate) {
         String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
         SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
         sf.setLenient(true);
