@@ -29,6 +29,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     private SwipeRefreshLayout swipeContainer;
     static final int COMPOSE_REQUEST_CODE = 20;
+    static final int REPLY_REQUEST_CODE = 30;
     MenuItem miActionProgressItem;
     TwitterClient client;
     TweetAdapter tweetAdapter;
@@ -88,6 +89,7 @@ public class TimelineActivity extends AppCompatActivity {
         // handle click here
         showProgressBar();
         Intent i = new Intent(this, ComposeActivity.class);
+        i.putExtra("request_code", COMPOSE_REQUEST_CODE);
         startActivityForResult(i, COMPOSE_REQUEST_CODE);
         hideProgressBar();
     }
@@ -103,6 +105,14 @@ public class TimelineActivity extends AppCompatActivity {
             rvTweets.scrollToPosition(0);
             // Toast the name to display temporarily on screen
             Toast.makeText(this, "Tweet Composed", Toast.LENGTH_SHORT).show();
+        } else if (resultCode == RESULT_OK && requestCode == REPLY_REQUEST_CODE) {
+            // Extract name value from result extras
+            Tweet tweet = (Tweet) Parcels.unwrap(data.getParcelableExtra("tweet"));
+            tweets.add(0, tweet);
+            tweetAdapter.notifyItemInserted(0);
+            rvTweets.scrollToPosition(0);
+            // Toast the name to display temporarily on screen
+            Toast.makeText(this, "Tweet Replied", Toast.LENGTH_SHORT).show();
         }
     }
 

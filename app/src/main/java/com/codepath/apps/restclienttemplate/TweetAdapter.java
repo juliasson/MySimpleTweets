@@ -8,6 +8,7 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -78,6 +79,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         public TextView tvBody;
         public TextView tvScreenName;
         public TextView tvTimeStamp;
+        public ImageButton ibReplyButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -88,6 +90,16 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             tvBody = itemView.findViewById(R.id.tvBody);
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvTimeStamp = itemView.findViewById(R.id.tvTimeStamp);
+            ibReplyButton = itemView.findViewById(R.id.ibReply);
+            ibReplyButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(mContext, ComposeActivity.class);
+                    Tweet tweet = mTweets.get(getAdapterPosition());
+                    i.putExtra("screen_name", tweet.user.screenName);
+                    mContext.startActivity(i);
+                }
+            });
             itemView.setOnClickListener(this);
         }
 

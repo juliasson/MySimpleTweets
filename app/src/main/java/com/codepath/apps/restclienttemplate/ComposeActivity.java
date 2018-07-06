@@ -34,6 +34,10 @@ public class ComposeActivity extends AppCompatActivity {
         tvCharCount = findViewById(R.id.tvCharCount);
         client = TwitterApplication.getRestClient(this);
 
+        if (getIntent().getExtras() != null) {
+            etTweetBody.setText(String.format("@%s", getIntent().getStringExtra("screen_name")));
+        }
+
         etTweetBody.addTextChangedListener(new TextWatcher()
         {
             @Override
