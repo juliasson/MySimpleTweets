@@ -11,8 +11,9 @@
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="5dp"
-        app:srcCompat="@android:color/background_dark" />
+        android:layout_marginStart="5dp"
+        app:srcCompat="@android:color/background_dark"
+        android:contentDescription="@string/profile_image_description" />
 
     <TextView
         android:id="@+id/tvUserName"
@@ -20,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toStartOf="@+id/ivProfileImage"
-        android:text="UserName" />
+        android:text="@string/default_username" />
 
     <TextView
         android:id="@+id/tvScreenName"
@@ -28,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_toStartOf="@id/ivProfileImage"
         android:layout_below="@+id/tvUserName"
-        android:text="ScreenName" />
+        android:text="@string/default_screenname" />
 
     <EditText
         android:id="@+id/etTweetBody"
@@ -44,7 +45,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        app:srcCompat="@drawable/ic_vector_close" />
+        app:srcCompat="@drawable/ic_vector_close"
+        android:contentDescription="@string/cancel_button_description" />
 
     <Button
         android:id="@+id/bvTweetButton"
@@ -56,7 +58,7 @@
         android:background="@color/twitter_blue"
         android:textColor="@color/white"
         android:onClick="onSubmit"
-        android:text="Tweet" />
+        android:text="@string/tweet_button_label" />
 
     <TextView
         android:id="@+id/tvCharCount"
@@ -64,6 +66,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toStartOf="@+id/bvTweetButton"
-        android:text="140" />
+        android:text="@string/max_char" />
 
 </RelativeLayout>

@@ -6,4 +6,16 @@
     <string name="intent_scheme">oauth</string>
     <string name="intent_host">cprest</string>
 
+    <string name="compose_body_hint">What\'s happening?</string>
+    <string name="tweet_button_label">Tweet</string>
+    <string name="max_char">140</string>
+
+    <string name="default_username">User Name</string>
+    <string name="default_screenname">Screen Name</string>
+    <string name="default_timestamp">Time Stamp</string>
+    <string name="default_tweetbody">Tweet Body</string>
+
+    <string name="reply_button_description">Reply Icon</string>
+    <string name="profile_image_description">Profile Image</string>
+    <string name="cancel_button_description">Cancel Icon</string>
 </resources>
